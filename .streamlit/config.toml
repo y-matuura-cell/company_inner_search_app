@@ -1,3 +1,5 @@
+[server]
+enableWatchdog = false
 [theme]
 primaryColor = "#0000FF"
 backgroundColor = "#FFFFFF"
