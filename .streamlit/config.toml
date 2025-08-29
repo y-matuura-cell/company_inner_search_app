@@ -1,5 +1,5 @@
 [server]
-enableWatchdog = false
+folderWatchBlacklist = ["data"]
 [theme]
 primaryColor = "#0000FF"
 backgroundColor = "#FFFFFF"
