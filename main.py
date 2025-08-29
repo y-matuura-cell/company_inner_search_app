@@ -1,6 +1,7 @@
 """
 このファイルは、Webアプリのメイン処理が記述されたファイルです。
 """
+print("main.py start")
 
 ############################################################
 # 1. ライブラリの読み込み
@@ -44,6 +45,10 @@ except Exception as e:
     logger.error(f"{ct.INITIALIZE_ERROR_MESSAGE}\n{e}")
     # エラーメッセージの画面表示
     st.error(utils.build_error_message(ct.INITIALIZE_ERROR_MESSAGE), icon=ct.ERROR_ICON)
+    # 例外内容も画面に表示
+    st.error(str(e))
+    # printでも出力（App logs用）
+    print(f"INITIALIZE ERROR: {str(e)}")
     # 後続の処理を中断
     st.stop()
 
@@ -153,5 +158,6 @@ if chat_message:
     # ==========================================
     # 表示用の会話ログにユーザーメッセージを追加
     st.session_state.messages.append({"role": "user", "content": chat_message})
-    # 表示用の会話ログにAIメッセージを追加
-    st.session_state.messages.append({"role": "assistant", "content": content})
+    import streamlit as st
+    print("main.py minimal start")
+    st.write("Streamlit minimal app 起動テスト")

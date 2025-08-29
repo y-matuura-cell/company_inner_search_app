@@ -36,14 +36,19 @@ def initialize():
     """
     画面読み込み時に実行する初期化処理
     """
+    print("initialize: start")
     # 初期化データの用意
     initialize_session_state()
+    print("initialize: session_state OK")
     # ログ出力用にセッションIDを生成
     initialize_session_id()
+    print("initialize: session_id OK")
     # ログ出力の設定
     initialize_logger()
+    print("initialize: logger OK")
     # RAGのRetrieverを作成
     initialize_retriever()
+    print("initialize: retriever OK")
 
 
 def initialize_logger():
@@ -51,6 +56,7 @@ def initialize_logger():
     ログ出力の設定
     """
     # 指定のログフォルダが存在すれば読み込み、存在しなければ新規作成
+    print("initialize_logger: start")
     os.makedirs(ct.LOG_DIR_PATH, exist_ok=True)
     
     # 引数に指定した名前のロガー（ログを記録するオブジェクト）を取得
@@ -93,6 +99,7 @@ def initialize_session_id():
     """
     セッションIDの作成
     """
+    print("initialize_session_id: start")
     if "session_id" not in st.session_state:
         # ランダムな文字列（セッションID）を、ログ出力用に作成
         st.session_state.session_id = uuid4().hex
@@ -103,6 +110,7 @@ def initialize_retriever():
     画面読み込み時にRAGのRetriever（ベクターストアから検索するオブジェクト）を作成
     """
     # ロガーを読み込むことで、後続の処理中に発生したエラーなどがログファイルに記録される
+    print("initialize_retriever: start")
     logger = logging.getLogger(ct.LOGGER_NAME)
 
     # すでにRetrieverが作成済みの場合、後続の処理を中断
@@ -142,6 +150,7 @@ def initialize_session_state():
     """
     初期化データの用意
     """
+    print("initialize_session_state: start")
     if "messages" not in st.session_state:
         # 「表示用」の会話ログを順次格納するリストを用意
         st.session_state.messages = []
@@ -157,6 +166,7 @@ def load_data_sources():
         読み込んだ通常データソース
     """
     # データソースを格納する用のリスト
+    print("load_data_sources: start")
     docs_all = []
     # ファイル読み込みの実行（渡した各リストにデータが格納される）
     recursive_file_check(ct.RAG_TOP_FOLDER_PATH, docs_all)
@@ -185,6 +195,7 @@ def recursive_file_check(path, docs_all):
         docs_all: データソースを格納する用のリスト
     """
     # パスがフォルダかどうかを確認
+    print(f"recursive_file_check: {path}")
     if os.path.isdir(path):
         # フォルダの場合、フォルダ内のファイル/フォルダ名の一覧を取得
         files = os.listdir(path)
@@ -213,6 +224,7 @@ def file_load(path, docs_all):
     file_name = os.path.basename(path)
 
     # 想定していたファイル形式の場合のみ読み込む
+    print(f"file_load: {path}")
     if file_extension in ct.SUPPORTED_EXTENSIONS:
         # ファイルの拡張子に合ったdata loaderを使ってデータ読み込み
         loader = ct.SUPPORTED_EXTENSIONS[file_extension](path)
