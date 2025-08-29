@@ -16,46 +16,68 @@ import constants as ct
 
 def display_app_title():
     """
-    タイトル表示
+    タイトル表示（中央寄せ・太字・大きめ・余白追加）
     """
-    st.markdown(f"## {ct.APP_NAME}")
+    st.markdown(
+        f"""
+        <div style='text-align:center; font-size:2.2em; font-weight:bold; margin-top: 1.5em; margin-bottom: 1.2em; color:#2c3e50;'>
+            {ct.APP_NAME}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
-def display_select_mode():
+def display_sidebar():
     """
-    回答モードのラジオボタンを表示
+    サイドバーに利用目的ラジオ＋説明文＋入力例を表示
     """
-    # 回答モードを選択する用のラジオボタンを表示
-    col1, col2 = st.columns([100, 1])
-    with col1:
-        # 「label_visibility="collapsed"」とすることで、ラジオボタンを非表示にする
+    with st.sidebar:
+        st.markdown(
+            """
+            <div style='font-size:1.1em; font-weight:bold; margin-bottom:0.7em;'>利用目的</div>
+            """,
+            unsafe_allow_html=True
+        )
         st.session_state.mode = st.radio(
             label="",
             options=[ct.ANSWER_MODE_1, ct.ANSWER_MODE_2],
-            label_visibility="collapsed"
+            label_visibility="collapsed",
+            index=0,
+        )
+        st.markdown("<hr style='margin:1em 0;'>", unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style='font-size:0.98em; margin-bottom:0.7em;'>
+                <b>【「社内文書検索」を選択した場合】</b><br>
+                入力内容と関連性が高い社内文書のありかを検索できます。<br>
+                <span style='color:#555;'>【入力例】<br>社員の育成方針に関するMTGの議事録</span>
+            </div>
+            <div style='font-size:0.98em;'>
+                <b>【「社内問い合わせ」を選択した場合】</b><br>
+                質問・要望に対して、社内文書の情報をもとに回答を得られます。<br>
+                <span style='color:#555;'>【入力例】<br>人事部に所属している従業員情報を一覧化して</span>
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
 
 def display_initial_ai_message():
     """
-    AIメッセージの初期表示
+    AIメッセージの初期表示（緑・黄背景の四角囲み＋説明文）
     """
-    with st.chat_message("assistant"):
-        # 「st.success()」とすると緑枠で表示される
-        st.markdown("こんにちは。私は社内文書の情報をもとに回答する生成AIチャットボットです。上記で利用目的を選択し、画面下部のチャット欄からメッセージを送信してください。")
-
-        # 「社内文書検索」の機能説明
-        st.markdown("**【「社内文書検索」を選択した場合】**")
-        # 「st.info()」を使うと青枠で表示される
-        st.info("入力内容と関連性が高い社内文書のありかを検索できます。")
-        # 「st.code()」を使うとコードブロックの装飾で表示される
-        # 「wrap_lines=True」で折り返し設定、「language=None」で非装飾とする
-        st.code("【入力例】\n社員の育成方針に関するMTGの議事録", wrap_lines=True, language=None)
-
-        # 「社内問い合わせ」の機能説明
-        st.markdown("**【「社内問い合わせ」を選択した場合】**")
-        st.info("質問・要望に対して、社内文書の情報をもとに回答を得られます。")
-        st.code("【入力例】\n人事部に所属している従業員情報を一覧化して", wrap_lines=True, language=None)
+    st.markdown(
+        """
+        <div style='background-color:#e0f7e9; border-radius:10px; padding:1.1em 1.2em; margin-bottom:0.8em; border:1.5px solid #43a047; color:#222; font-size:1.05em;'>
+            こんにちは。私は社内文書の情報をもとに回答する生成AIチャットボットです。<br>上記で利用目的を選択し、画面下部のチャット欄からメッセージを送信してください。
+        </div>
+        <div style='background-color:#fffde7; border-radius:10px; padding:0.9em 1.2em; margin-bottom:1.2em; border:1.5px solid #ffe082; color:#222; font-size:1.02em;'>
+            具体的に入力したほうが期待通りの回答を得やすいです。
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 def display_conversation_log():

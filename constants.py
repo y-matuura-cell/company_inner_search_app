@@ -1,3 +1,9 @@
+# ==========================================
+# RAG・ベクターストア関連のパラメータ
+# ==========================================
+RAG_RETRIEVER_TOP_K = 5  # ベクターストアから取得する関連ドキュメント数
+RAG_CHUNK_SIZE = 300     # チャンク分割時のチャンクサイズ（推奨値）
+RAG_CHUNK_OVERLAP = 30   # チャンク分割時のオーバーラップ（推奨値）
 """
 このファイルは、固定の文字列や数値などのデータを変数として一括管理するファイルです。
 """
@@ -19,7 +25,7 @@ from langchain_community.document_loaders.csv_loader import CSVLoader
 APP_NAME = "社内情報特化型生成AI検索アプリ"
 ANSWER_MODE_1 = "社内文書検索"
 ANSWER_MODE_2 = "社内問い合わせ"
-CHAT_INPUT_HELPER_TEXT = "こちらからメッセージを送信してください。"
+CHAT_INPUT_HELPER_TEXT = "ここに質問やキーワードを入力してください（例：営業資料の場所、従業員名簿を見せて など）"
 DOC_SOURCE_ICON = ":material/description: "
 LINK_SOURCE_ICON = ":material/link: "
 WARNING_ICON = ":material/warning:"
