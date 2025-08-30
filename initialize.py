@@ -137,13 +137,18 @@ def initialize_retriever():
     )
 
     # チャンク分割を実施
+    print("=== initialize.py: 1 initialize_retriever開始 ===")
+    print("2: ドキュメント読み込み直前")
+    print(f"[DEBUG] ドキュメント読み込み件数: {len(docs_all)}")
+    print("=== initialize.py: 3 チャンク分割直前 ===")
     splitted_docs = text_splitter.split_documents(docs_all)
-
-    # ベクターストアの作成
+    print(f"[DEBUG] チャンク分割後のドキュメント数: {len(splitted_docs)}")
+    print("=== initialize.py: 4 ベクターストア作成直前 ===")
     db = Chroma.from_documents(splitted_docs, embedding=embeddings)
-
-    # ベクターストアを検索するRetrieverの作成
-    st.session_state.retriever = db.as_retriever(search_kwargs={"k": ct.RAG_RETRIEVER_TOP_K})
+    print("[DEBUG] ベクターストア作成完了")
+    print("=== initialize.py: 5 Retriever作成直前 ===")
+    st.session_state.retriever = db.as_retriever(search_kwargs={"k": 5})
+    print("=== initialize.py: 6 initialize_retriever終了 ===")
 
 
 def initialize_session_state():
