@@ -1,16 +1,5 @@
-import sys
-print("=== main.py 1行目到達 ===")
-sys.stderr.write('=== STDERR main.py 1行目到達 ===\n')
-"""
-このファイルは、Webアプリのメイン処理が記述されたファイルです。
-"""
-print("main.py start")
 
-############################################################
-# 1. ライブラリの読み込み
-############################################################
-from dotenv import load_dotenv
-import logging
+import sys
 import streamlit as st
 import utils
 from initialize import initialize
@@ -18,6 +7,15 @@ import components as cn
 import constants as ct
 
 st.set_page_config(page_title=ct.APP_NAME)
+
+print("=== main.py 1行目到達 ===")
+sys.stderr.write('=== STDERR main.py 1行目到達 ===\n')
+"""
+このファイルは、Webアプリのメイン処理が記述されたファイルです。
+"""
+print("main.py start")
+from dotenv import load_dotenv
+import logging
 logger = logging.getLogger(ct.LOGGER_NAME)
 
 print("main.py: initialize()直前")
