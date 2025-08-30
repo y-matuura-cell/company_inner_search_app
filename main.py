@@ -1,6 +1,4 @@
 
-sys.stderr.write('=== STDERR main.py 1行目到達 ===\n')
-
 import streamlit as st
 import sys
 import utils
@@ -10,12 +8,7 @@ import constants as ct
 from dotenv import load_dotenv
 import logging
 
-# st.set_page_config()はimport直後、print等より前に必ず置く
 st.set_page_config(page_title=ct.APP_NAME)
-
-# session_state["mode"]の初期化
-if "mode" not in st.session_state:
-    st.session_state["mode"] = ct.ANSWER_MODE_1
 
 print("=== main.py 1行目到達 ===")
 sys.stderr.write('=== STDERR main.py 1行目到達 ===\n')
