@@ -8,7 +8,9 @@ import constants as ct
 from dotenv import load_dotenv
 import logging
 
+
 st.set_page_config(page_title=ct.APP_NAME)
+initialize()
 
 print("=== main.py 1行目到達 ===")
 sys.stderr.write('=== STDERR main.py 1行目到達 ===\n')
