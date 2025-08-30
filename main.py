@@ -53,9 +53,11 @@ with main_area:
             # ユーザーの入力を会話ログに追加
             st.session_state.messages.append({"role": "user", "content": user_input})
             try:
+                print(f"[DEBUG] get_llm_response呼び出し前: user_input={user_input}")
                 # AI応答生成
                 with st.spinner("AIが回答中..."):
                     ai_response = utils.get_llm_response(user_input)
+                print(f"[DEBUG] get_llm_response返り値: ai_response={repr(ai_response)}")
                 st.session_state.messages.append({"role": "assistant", "content": ai_response})
             except Exception as e:
                 import traceback
