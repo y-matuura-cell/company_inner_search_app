@@ -1,10 +1,12 @@
 
-import sys
 import streamlit as st
+import sys
 import utils
 from initialize import initialize
 import components as cn
 import constants as ct
+from dotenv import load_dotenv
+import logging
 
 st.set_page_config(page_title=ct.APP_NAME)
 
@@ -14,25 +16,15 @@ sys.stderr.write('=== STDERR main.py 1行目到達 ===\n')
 このファイルは、Webアプリのメイン処理が記述されたファイルです。
 """
 print("main.py start")
-from dotenv import load_dotenv
-
-import streamlit as st
-st.set_page_config(page_title="アプリ内検索")
-
-import sys
-print("=== main.py 1行目到達 ===")
-sys.stderr.write('=== STDERR main.py 1行目到達 ===\n')
-"""
-このファイルは、Webアプリのメイン処理が記述されたファイルです。
-"""
-print("main.py start")
-from dotenv import load_dotenv
-import logging
-import utils
-from initialize import initialize
-import components as cn
-import constants as ct
 logger = logging.getLogger(ct.LOGGER_NAME)
+
+# メインエリア（containerで明示的に分割）
+main_area = st.container()
+with main_area:
+    cn.display_app_title()
+    cn.display_initial_ai_message()
+
+    # 会話ログの表示（st.markdownで自作表示）
     if "messages" not in st.session_state:
         st.session_state.messages = []
     for message in st.session_state.messages:
