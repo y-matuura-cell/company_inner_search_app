@@ -58,7 +58,11 @@ with main_area:
                 with st.spinner("AIが回答中..."):
                     ai_response = utils.get_llm_response(user_input)
                 print(f"[DEBUG] get_llm_response返り値: ai_response={repr(ai_response)}")
-                st.session_state.messages.append({"role": "assistant", "content": ai_response})
+                # AI応答が辞書型の場合はanswerキーのみを格納
+                st.session_state.messages.append({
+                    "role": "assistant",
+                    "content": ai_response["answer"] if isinstance(ai_response, dict) and "answer" in ai_response else str(ai_response)
+                })
             except Exception as e:
                 import traceback
                 logger.error(f"{ct.AI_ERROR_MESSAGE}\n{e}")
