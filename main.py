@@ -18,6 +18,9 @@ sys.stderr.write('=== STDERR main.py 1行目到達 ===\n')
 print("main.py start")
 logger = logging.getLogger(ct.LOGGER_NAME)
 
+# サイドバー（利用目的・説明）
+cn.display_sidebar()
+
 # メインエリア（containerで明示的に分割）
 main_area = st.container()
 with main_area:
