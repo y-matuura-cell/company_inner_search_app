@@ -52,18 +52,18 @@ logger = logging.getLogger(ct.LOGGER_NAME)
         user_input = st.text_input("質問を入力してください", key="user_input")
         submitted = st.form_submit_button("送信")
 
-    if submitted and user_input:
-        # ユーザーの入力を会話ログに追加
-        st.session_state.messages.append({"role": "user", "content": user_input})
-        try:
-            # AI応答生成
-            with st.spinner("AIが回答中..."):
-                ai_response = utils.get_llm_response(user_input)
-            st.session_state.messages.append({"role": "assistant", "content": ai_response})
-        except Exception as e:
-            import traceback
-            logger.error(f"{ct.AI_ERROR_MESSAGE}\n{e}")
-            st.error(utils.build_error_message(ct.AI_ERROR_MESSAGE), icon=ct.ERROR_ICON)
-            st.error(str(e))
-            print(f"AI ERROR: {str(e)}")
-            print(traceback.format_exc())
+        if submitted and user_input:
+            # ユーザーの入力を会話ログに追加
+            st.session_state.messages.append({"role": "user", "content": user_input})
+            try:
+                # AI応答生成
+                with st.spinner("AIが回答中..."):
+                    ai_response = utils.get_llm_response(user_input)
+                st.session_state.messages.append({"role": "assistant", "content": ai_response})
+            except Exception as e:
+                import traceback
+                logger.error(f"{ct.AI_ERROR_MESSAGE}\n{e}")
+                st.error(utils.build_error_message(ct.AI_ERROR_MESSAGE), icon=ct.ERROR_ICON)
+                st.error(str(e))
+                print(f"AI ERROR: {str(e)}")
+                print(traceback.format_exc())
